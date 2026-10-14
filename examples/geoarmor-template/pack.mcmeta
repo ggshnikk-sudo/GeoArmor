@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "GeoArmor template: one cube helmet + a glowing visor, one config entry",
+    "min_format": 88,
+    "max_format": 88
+  }
+}

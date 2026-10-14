@@ -1,0 +1,25 @@
+# Build output
+build/
+.gradle/
+out/
+
+# Dev run directory: world, logs, screenshots, locally installed packs
+run/
+logs/
+crash-reports/
+
+# Editors / OS
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+.DS_Store
+
+# JVM crash dumps
+hs_err_pid*
+replay_pid*
+
+# Local backups
+*.bak

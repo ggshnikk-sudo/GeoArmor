@@ -1,0 +1,8 @@
+{
+  "armor": {
+    "minecraft:golden_helmet": {
+      "geo": "geoarmor_template:template_helmet",
+      "glow": "glow"
+    }
+  }
+}

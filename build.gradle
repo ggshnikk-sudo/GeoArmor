@@ -1,0 +1,93 @@
+plugins {
+	id "net.fabricmc.fabric-loom" version "${loom_version}"
+	id "maven-publish"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	mavenCentral()
+	// GeckoLib is published to Modrinth's maven.
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Hard dependency: the armor is rendered and animated through GeckoLib's armor pipeline.
+	implementation "maven.modrinth:geckolib:${project.geckolib_version}"
+
+	// Dev client only: GeckoLib hard-requires fabric-api, so it must be present for runClient.
+	localRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	testImplementation platform("org.junit:junit-bom:5.11.4")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+		exceptionFormat "full"
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = "UTF-8"
+	options.release = project.java_version as int
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(project.java_version as int)
+	}
+	withSourcesJar()
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+jar {
+	from("LICENSE") { rename { "${it}_${project.base.archivesName.get()}" } }
+}
+
+// The example packs live in `examples/` (committed, shipped with releases). Minecraft's pack scanner
+// does not follow symlinks, so they are copied into the dev run directory before every client run;
+// `run/` stays disposable and `examples/` stays the single source of truth.
+tasks.register("syncExamplePacks", Copy) {
+	from("examples")
+	into("run/resourcepacks")
+}
+
+tasks.matching { it.name == "runClient" }.configureEach {
+	dependsOn("syncExamplePacks")
+}
+
+loom {
+	accessWidenerPath = file("src/main/resources/geoarmor.accesswidener")
+
+	runs {
+		client {
+			// Debug: logs pack validation problems and per-item resolution at reload.
+			vmArg "-Dgeoarmor.debug=true"
+
+			programArg "--username"
+			programArg "GeoarmorDev"
+		}
+	}
+}

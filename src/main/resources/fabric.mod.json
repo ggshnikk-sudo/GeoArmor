@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "geoarmor",
+	"version": "${version}",
+	"name": "GeoArmor",
+	"description": "Resource-pack-driven GeckoLib armor engine. Packs assign GeckoLib/Bedrock geo models, textures and animations to any armor item via config/armor/*.json, replacing the vanilla armor layer. Client-side.",
+	"license": "MIT",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.geoarmor.GeoArmor"
+		]
+	},
+	"mixins": [
+		"geoarmor.mixins.json"
+	],
+	"accessWidener": "geoarmor.accesswidener",
+	"depends": {
+		"minecraft": "~26.2",
+		"fabricloader": ">=0.19.0",
+		"java": ">=25",
+		"geckolib": ">=5.5.5"
+	},
+	"custom": {
+		"modmenu": {
+			"badges": [ "library" ]
+		}
+	}
+}

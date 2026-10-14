@@ -1,0 +1,20 @@
+{
+  "armor": {
+    "minecraft:diamond_helmet": {
+      "geo": "geoarmor_sample:geo/iron_set.geo.json",
+      "texture": "geoarmor_sample:textures/armor/iron_set.png"
+    },
+    "minecraft:diamond_chestplate": {
+      "geo": "geoarmor_sample:geo/iron_set.geo.json",
+      "texture": "geoarmor_sample:textures/armor/iron_set.png"
+    },
+    "minecraft:diamond_leggings": {
+      "geo": "geoarmor_sample:geo/iron_set.geo.json",
+      "texture": "geoarmor_sample:textures/armor/iron_set.png"
+    },
+    "minecraft:diamond_boots": {
+      "geo": "geoarmor_sample:geo/iron_set.geo.json",
+      "texture": "geoarmor_sample:textures/armor/iron_set.png"
+    }
+  }
+}

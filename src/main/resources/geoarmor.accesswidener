@@ -1,0 +1,19 @@
+accessWidener v2 official
+
+# EntityRendererMixin needs the layer list to locate the HumanoidArmorLayer on the target renderer.
+accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
+
+# EntityRendererMixin needs the vanilla armor model for the slot (positioning source for the geo bones).
+accessible method net/minecraft/client/renderer/entity/layers/HumanoidArmorLayer getArmorModel (Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/client/model/HumanoidModel;
+
+# HumanoidArmorLayerMixin needs the live camera render state to submit the geo armor pass.
+accessible field net/minecraft/client/renderer/LevelRenderer levelRenderState Lnet/minecraft/client/renderer/state/level/LevelRenderState;
+
+# PackRenderTypes builds the armor glow render type from a RenderSetup; the factory is package-private.
+accessible method net/minecraft/client/renderer/rendertype/RenderType create (Ljava/lang/String;Lnet/minecraft/client/renderer/rendertype/RenderSetup;)Lnet/minecraft/client/renderer/rendertype/RenderType;
+
+# PackRenderTypes builds its own glow/burn pipelines (no vanilla pipeline has the needed define/blend/depth
+# combination): the pipeline registrar and the matrices+fog+light-dir snippet are package-private.
+accessible method net/minecraft/client/renderer/RenderPipelines register (Lcom/mojang/blaze3d/pipeline/RenderPipeline;)Lcom/mojang/blaze3d/pipeline/RenderPipeline;
+accessible field net/minecraft/client/renderer/RenderPipelines MATRICES_FOG_LIGHT_DIR_SNIPPET Lcom/mojang/blaze3d/pipeline/RenderPipeline$Snippet;
+
