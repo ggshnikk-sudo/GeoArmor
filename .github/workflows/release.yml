@@ -64,7 +64,7 @@ jobs:
       - name: Package sources
         run: |
           set -euo pipefail
-          PREFIX="GeoArmor-$REF"
+          PREFIX="geoarmor-$REF"
           mkdir -p dist
           git archive --format=zip    --prefix="$PREFIX/" -o "dist/$PREFIX-sources.zip"    "$REF"
           git archive --format=tar.gz --prefix="$PREFIX/" -o "dist/$PREFIX-sources.tar.gz" "$REF"
